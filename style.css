@@ -1,0 +1,268 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.small {
+  padding: 20px 120px;
+  background-color: rgba(252, 106, 106, 0.267);
+  opacity: 0.6;
+}
+
+.big {
+  padding: 50px 120px;
+  background-color: rgba(211, 75, 132, 0.267);
+}
+
+.symbolBox {
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.342);
+  font-weight: bold;
+  text-align: center;
+  width: 100px;
+  font-size: 5rem;
+  border-radius: 5px;
+  margin: 4px;
+  border: 2px solid black;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#startBtn {
+  position: fixed;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 4rem;
+  padding: 20px 50px;
+  border: none;
+  background-color: rgb(205, 213, 219);
+  border-radius: 10px;
+  box-shadow: 0px 4px black;
+  transition: transform 0.1s, background-color 0.1s;
+}
+
+#startBtn:active {
+  background-color: rgb(151, 157, 163);
+  transform: translate(-50%, 4px);
+  box-shadow: none;
+}
+
+#score {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  font-size: 5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  transform: translateX(-50%);
+}
+
+.big.win {
+  background-color: rgba(25, 255, 25, 0.466) !important;
+  color: white;
+}
+
+.big.lose {
+  background-color: rgba(255, 25, 25, 0.466);
+}
+
+#log {
+  position: absolute;
+  left: 0;
+  top: 20%;
+  width: 20%;
+  border: 3px solid black;
+  border-radius: 10px;
+  height: 60%;
+  margin: 8px;
+  text-align: center;
+  overflow-y: auto;
+  font-size: 2.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#sideVideo {
+  position: absolute;
+  right: 0;
+  top: 20%;
+  width: 20%;
+  border: 3px solid black;
+  border-radius: 10px;
+  height: 60%;
+  margin: 8px;
+  text-align: center;
+  overflow-y: auto;
+  font-size: 2.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#gameOver {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 100px 200px;
+  border-radius: 15px;
+  color: aliceblue;
+  background-color: rgba(0, 0, 0, 0.534);
+  text-shadow: 2px 2px rgba(255, 255, 255, 0.363);
+  display: none;
+}
+
+#reset {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 4rem;
+  background-color: rgba(0, 0, 0, 0.534);
+  color: white;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 4px;
+  box-shadow: 2px 2px black;
+  margin: 10px;
+}
+
+#reset:active {
+  transform: translate(2px, 2px);
+}
+
+/* Responsive Design */
+
+@media (max-width: 1200px) {
+  .symbolBox {
+    width: 60px;
+    font-size: 2rem;
+  }
+
+  .small {
+    padding: 9px 40px;
+  }
+  .big {
+    padding: 18px 40px;
+  }
+
+  #startBtn {
+    font-size: 1.5rem;
+    padding: 10px 25px;
+    bottom: 20px;
+  }
+
+  #score {
+    font-size: 2.3rem;
+    top: 0%;
+  }
+
+  #log {
+    width: 20%;
+    font-size: 1.4rem;
+  }
+
+  #gameOver {
+    font-size: 3rem;
+    padding: 50px 100px;
+  }
+
+  #reset {
+    font-size: 2rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .symbolBox {
+    width: 50px;
+    font-size: 2rem;
+  }
+
+  .small {
+    padding: 5px 40px;
+  }
+  .big {
+    padding: 10px 40px;
+  }
+
+  #startBtn {
+    font-size: 1.5rem;
+    padding: 10px 25px;
+    bottom: 20px;
+  }
+
+  #score {
+    font-size: 2.5rem;
+    top: 0%;
+  }
+
+  #log {
+    width: 15%;
+    font-size: 1rem;
+  }
+
+  #gameOver {
+    font-size: 3rem;
+    padding: 50px 100px;
+  }
+
+  #reset {
+    font-size: 2rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .symbolBox {
+    width: 50px;
+    font-size: 1.5rem;
+  }
+
+  .small {
+    padding: 10px 20px;
+  }
+  .big {
+    padding: 20px 20px;
+  }
+
+  #startBtn {
+    font-size: 2rem;
+    padding: 10px 25px;
+    bottom: 20%;
+  }
+
+  #score {
+    font-size: 2.5rem;
+    top: 0%;
+  }
+
+  #log {
+    width: 95%;
+    height: 20%;
+    top: 11%;
+    font-size: 1rem;
+    border: 2px solid black;
+  }
+
+  #gameOver {
+    font-size: 3rem;
+    padding: 50px 100px;
+  }
+
+  #reset {
+    font-size: 1.6rem;
+    padding: 5px 10px;
+  }
+}

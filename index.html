@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gamble Dich Geil</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1 id="score">Coins: 10</h1>
+    <div class="container">
+      <div class="row">
+        <div class="symbolBox small">
+          <div class="inner">🍓</div>
+        </div>
+        <div class="symbolBox small">🍓</div>
+        <div class="symbolBox small">🍓</div>
+      </div>
+
+      <div class="row">
+        <div class="symbolBox big" id="symbolBox1">🍪</div>
+        <div class="symbolBox big" id="symbolBox2">🍪</div>
+        <div class="symbolBox big" id="symbolBox3">🍪</div>
+      </div>
+
+      <div class="row">
+        <div class="symbolBox small">🩷</div>
+        <div class="symbolBox small">🩷</div>
+        <div class="symbolBox small">🩷</div>
+      </div>
+    </div>
+
+    <div id="log">
+      <p id="plus"></p>
+      <p id="minus"></p>
+      <p id="total">Total Win: 0 Coins</p>
+    </div>
+
+    <div id="gameOver">
+      <p>
+        Broke 💀 <br />
+        <button onclick="reset()" id="reset">Try again?</button>
+      </p>
+    </div>
+    <button id="startBtn" onclick="startChanging()">🎰</button>
+
+    <script src="index.js"></script>
+  </body>
+</html>
