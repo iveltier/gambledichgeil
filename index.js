@@ -12,6 +12,7 @@ const subtractBtn = document.getElementById("subtract");
 const winSound = new Audio("sounds/win.mp3");
 const columStopSound = new Audio("sounds/columStop.mp3");
 const btnClickSound = new Audio("sounds/btnClick.mp3");
+const allInBtn = document.getElementById("allIn");
 
 let multiplier = 1;
 let intervals = [];
@@ -31,7 +32,10 @@ function reset() {
   startBtn.disabled = false;
   addBtn.disabled = false;
   subtractBtn.disabled = false;
+  allInBtn.disabled = false;
   symbolBoxes.forEach((box) => box.classList.remove("lose"));
+  multiplier = 1;
+  multiplierDisplay.textContent = multiplier;
 }
 
 function startChanging() {
@@ -39,11 +43,14 @@ function startChanging() {
     gameOverDisplay.style.display = "block";
   } else if (multiplier > score) {
     window.alert("You don't have enough coins to play with this multiplier!");
+    multiplier = score;
+    multiplierDisplay.textContent = multiplier;
   } else {
     btnClickSound.play();
     startBtn.disabled = true;
     addBtn.disabled = true;
     subtractBtn.disabled = true;
+    allInBtn.disabled = true;
     score -= multiplier;
     symbolBoxes.forEach((box) => box.classList.remove("win", "lose"));
 
@@ -156,6 +163,7 @@ function startChanging() {
           startBtn.disabled = false;
           addBtn.disabled = false;
           subtractBtn.disabled = false;
+          allInBtn.disabled = false;
           if (score <= 0) {
             gameOverDisplay.style.display = "block";
           }
@@ -184,16 +192,27 @@ function subtract() {
   }
 }
 
+function allIn() {
+  multiplier = score;
+  multiplierDisplay.textContent = multiplier;
+}
+
 window.addEventListener("keydown", (event) => {
   switch (event.key) {
     case " ":
-      startChanging();
+      if (!startBtn.disabled) {
+        startChanging();
+      }
       break;
     case "+":
-      add();
+      if (!addBtn.disabled) {
+        add();
+      }
       break;
     case "-":
-      subtract();
+      if (!subtractBtn.disabled) {
+        subtract();
+      }
       break;
   }
 });
