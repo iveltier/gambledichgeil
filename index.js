@@ -6,33 +6,38 @@ const minusDisplay = document.getElementById("minus");
 const totalDisplay = document.getElementById("total");
 const gameOverDisplay = document.getElementById("gameOver");
 const startBtn = document.getElementById("startBtn");
+const multiplierDisplay = document.getElementById("multiplier");
 
+let multiplier = 1;
 let interval;
 let score = 10;
-let minus = -1;
-let plus = 1;
+let minus = 0;
+let plus = 0;
 
 function reset() {
   score = 10;
-  minus = -1;
+  minus = 0;
   plus = 1;
   scoreDisplay.textContent = "Coins: " + score;
   plusDisplay.innerHTML = "";
-  minusDisplay.innerHTML = `${minus} Coins`;
+  minusDisplay.innerHTML = ``;
   totalDisplay.innerHTML = `Total Win: ${minus + plus} Coins`;
   gameOverDisplay.style.display = "none";
   startBtn.disabled = false;
+  symbolBoxes.forEach((box) => box.classList.remove("lose"));
 }
 
 function startChanging() {
   if (score <= 0) {
     gameOverDisplay.style.display = "block";
+  } else if (multiplier > score) {
+    window.alert("You don't have enough coins to play with this multiplier!");
   } else {
     startBtn.disabled = true;
-    score--;
+    score -= multiplier;
     symbolBoxes.forEach((box) => box.classList.remove("win", "lose"));
 
-    minusDisplay.innerHTML = `${minus--} Coins`;
+    minusDisplay.innerHTML = `${(minus -= multiplier)} Coins`;
 
     totalDisplay.innerHTML = `Total Win: ${minus + plus} Coins`;
     scoreDisplay.textContent = "Coins: " + score;
@@ -53,10 +58,10 @@ function startChanging() {
       function checkWin(condition, points) {
         if (condition) {
           symbolBoxes.forEach((box) => box.classList.add("win"));
-          score += points;
+          score += points * multiplier;
           scoreDisplay.textContent = "Coins: " + score;
-          plusDisplay.innerHTML += `+${points} Coins` + "<br>";
-          plus = plus + points;
+          plusDisplay.innerHTML += `+${points * multiplier} Coins` + "<br>";
+          plus = plus + points * multiplier;
         } else {
           symbolBoxes.forEach((box) => box.classList.add("lose"));
         }
@@ -122,6 +127,23 @@ function startChanging() {
       );
       totalDisplay.innerHTML = `Total Win: ${minus + plus} Coins`;
       startBtn.disabled = false;
+      if (score <= 0) {
+        gameOverDisplay.style.display = "block";
+      }
     }, Math.floor(Math.random() * 1500) + 1000);
+  }
+}
+
+function add() {
+  if (multiplier < score) {
+    multiplier++;
+    multiplierDisplay.textContent = multiplier;
+  }
+}
+
+function subtract() {
+  if (multiplier > 1) {
+    multiplier--;
+    multiplierDisplay.textContent = multiplier;
   }
 }

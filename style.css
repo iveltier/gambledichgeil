@@ -41,11 +41,20 @@ body {
   height: 100vh;
 }
 
-#startBtn {
+#buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
   position: fixed;
   bottom: 35px;
   left: 50%;
   transform: translateX(-50%);
+  text-align: center;
+}
+
+button {
   font-size: 4rem;
   padding: 20px 50px;
   border: none;
@@ -55,10 +64,15 @@ body {
   transition: transform 0.1s, background-color 0.1s;
 }
 
-#startBtn:active {
+button:active {
   background-color: rgb(151, 157, 163);
-  transform: translate(-50%, 4px);
+  transform: translateY(4px);
   box-shadow: none;
+}
+
+#multiplier {
+  max-width: 200px;
+  pointer-events: none;
 }
 
 #score {
@@ -117,7 +131,7 @@ body {
   background-color: rgba(0, 0, 0, 0.534);
   color: white;
   border: none;
-  padding: 5px 20px;
+  padding: 10px 30px;
   border-radius: 4px;
   box-shadow: 2px 2px black;
   margin: 10px;
@@ -188,10 +202,13 @@ a:visited {
     padding: 18px 40px;
   }
 
-  #startBtn {
+  button {
     font-size: 1.5rem;
     padding: 10px 25px;
-    bottom: 20px;
+  }
+
+  #buttonContainer {
+    bottom: 18px;
   }
 
   #score {
@@ -233,9 +250,12 @@ a:visited {
     padding: 10px 40px;
   }
 
-  #startBtn {
+  button {
     font-size: 1.5rem;
     padding: 10px 25px;
+  }
+
+  #buttonContainer {
     bottom: 20px;
   }
 
@@ -285,9 +305,13 @@ a:visited {
     padding: 20px 20px;
   }
 
-  #startBtn {
+  button {
     font-size: 2rem;
     padding: 10px 25px;
+    bottom: 20%;
+  }
+
+  #buttonContainer {
     bottom: 20%;
   }
 
