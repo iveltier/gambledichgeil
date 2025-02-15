@@ -5,6 +5,7 @@ const plusDisplay = document.getElementById("plus");
 const minusDisplay = document.getElementById("minus");
 const totalDisplay = document.getElementById("total");
 const gameOverDisplay = document.getElementById("gameOver");
+const startBtn = document.getElementById("startBtn");
 
 let interval;
 let score = 10;
@@ -20,12 +21,14 @@ function reset() {
   minusDisplay.innerHTML = `${minus} Coins`;
   totalDisplay.innerHTML = `Total Win: ${minus + plus} Coins`;
   gameOverDisplay.style.display = "none";
+  startBtn.disabled = false;
 }
 
 function startChanging() {
   if (score <= 0) {
     gameOverDisplay.style.display = "block";
   } else {
+    startBtn.disabled = true;
     score--;
     symbolBoxes.forEach((box) => box.classList.remove("win", "lose"));
 
@@ -63,6 +66,14 @@ function startChanging() {
         // 🍓🍓🍓
         values[3] === symbols[0] &&
           values[4] === symbols[0] &&
+          values[5] === symbols[0],
+        25
+      );
+
+      checkWin(
+        // 🍓🩷🍓
+        values[3] === symbols[0] &&
+          values[4] === symbols[1] &&
           values[5] === symbols[0],
         20
       );
@@ -107,9 +118,10 @@ function startChanging() {
         values[3] === symbols[6] &&
           values[4] === symbols[6] &&
           values[5] === symbols[6],
-        2
+        3
       );
       totalDisplay.innerHTML = `Total Win: ${minus + plus} Coins`;
+      startBtn.disabled = false;
     }, Math.floor(Math.random() * 1500) + 1000);
   }
 }
