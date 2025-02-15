@@ -9,6 +9,9 @@ const startBtn = document.getElementById("startBtn");
 const multiplierDisplay = document.getElementById("multiplier");
 const addBtn = document.getElementById("add");
 const subtractBtn = document.getElementById("subtract");
+const winSound = new Audio("sounds/win.mp3");
+const columStopSound = new Audio("sounds/columStop.mp3");
+const btnClickSound = new Audio("sounds/btnClick.mp3");
 
 let multiplier = 1;
 let intervals = [];
@@ -37,6 +40,7 @@ function startChanging() {
   } else if (multiplier > score) {
     window.alert("You don't have enough coins to play with this multiplier!");
   } else {
+    btnClickSound.play();
     startBtn.disabled = true;
     addBtn.disabled = true;
     subtractBtn.disabled = true;
@@ -65,15 +69,15 @@ function startChanging() {
     });
 
     const stopTimes = [
-      Math.floor(Math.random() * 1500) + 1000,
-      Math.floor(Math.random() * 2000) + 1500,
-      Math.floor(Math.random() * 2500) + 2100,
+      Math.floor(Math.random() * (1500 - 1000 + 1)) + 1000,
+      Math.floor(Math.random() * (2500 - 1600 + 1)) + 1600,
+      Math.floor(Math.random() * (3500 - 2600 + 1)) + 2600,
     ];
 
     stopTimes.forEach((time, index) => {
       setTimeout(() => {
         clearInterval(intervals[index]);
-
+        columStopSound.play();
         if (index === columns.length - 1) {
           const values = Array.from(symbolBoxes).map((box) => box.textContent); // convertieren von nodelist (querySlecetorAll) zu Array dabei macht .map() für jedes Element im Array textContent rausfiltern
 
@@ -84,6 +88,7 @@ function startChanging() {
               scoreDisplay.textContent = "Coins: " + score;
               plusDisplay.innerHTML += `+${points * multiplier} Coins` + "<br>";
               plus = plus + points * multiplier;
+              winSound.play();
             } else {
               symbolBoxes.forEach((box) => box.classList.add("lose"));
             }
@@ -183,13 +188,12 @@ window.addEventListener("keydown", (event) => {
   switch (event.key) {
     case " ":
       startChanging();
-  }
-  switch (event.key) {
+      break;
     case "+":
       add();
-  }
-  switch (event.key) {
+      break;
     case "-":
       subtract();
+      break;
   }
 });
