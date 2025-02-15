@@ -67,7 +67,7 @@ function startChanging() {
     const stopTimes = [
       Math.floor(Math.random() * 1500) + 1000,
       Math.floor(Math.random() * 2000) + 1500,
-      Math.floor(Math.random() * 2500) + 2000,
+      Math.floor(Math.random() * 2500) + 2100,
     ];
 
     stopTimes.forEach((time, index) => {
@@ -178,3 +178,18 @@ function subtract() {
     multiplierDisplay.textContent = multiplier;
   }
 }
+
+window.addEventListener("keydown", (event) => {
+  switch (event.key) {
+    case " ":
+      startChanging();
+  }
+  switch (event.key) {
+    case "+":
+      add();
+  }
+  switch (event.key) {
+    case "-":
+      subtract();
+  }
+});
