@@ -1,1 +1,1 @@
-Glücksspiel kann süchtig machen außer in Schleswig Holstein
+Glücksspiel kann süchtig machen, außer in Schleswig Holstein
