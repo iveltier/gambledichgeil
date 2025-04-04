@@ -2,7 +2,7 @@ const symbolBoxes = document.querySelectorAll(".symbolBox");
 const symbols = ["🍓", "🩷", "🩷", "✨", "✨", "✨", "🍪", "🍪", "🍪", "🍪"];
 const scoreDisplay = document.getElementById("score");
 const plusDisplay = document.getElementById("plus");
-const minusDisplay = document.getElementById("minus");
+const triesDisplay = document.getElementById("tries");
 const totalDisplay = document.getElementById("total");
 const gameOverDisplay = document.getElementById("gameOver");
 const startBtn = document.getElementById("startBtn");
@@ -19,15 +19,20 @@ let intervals = [];
 let score = 10;
 let minus = 0;
 let plus = 0;
+let tries = 0;
+let total = minus - plus;
 
 function reset() {
   score = 10;
-  minus = 0;
-  plus = 1;
+  minus = total;
+  plus = 0; // Setze plus auf 0
+  tries = 0; // Setze tries auf 0
+
+  // Behalte den Wert von total bei
   scoreDisplay.textContent = "Coins: " + score;
   plusDisplay.innerHTML = "";
-  minusDisplay.innerHTML = ``;
-  totalDisplay.innerHTML = `Total Win: ${minus + plus} Coins`;
+  triesDisplay.innerHTML = `0 Tries`; // Setze die Anzeige zurück
+  totalDisplay.innerHTML = `Total Win: ${total} Coins`; // Zeige den aktuellen Wert von total an
   gameOverDisplay.style.display = "none";
   startBtn.disabled = false;
   addBtn.disabled = false;
@@ -46,6 +51,7 @@ function startChanging() {
     multiplier = score;
     multiplierDisplay.textContent = multiplier;
   } else {
+    minus -= multiplier;
     btnClickSound.play();
     startBtn.disabled = true;
     addBtn.disabled = true;
@@ -54,9 +60,11 @@ function startChanging() {
     score -= multiplier;
     symbolBoxes.forEach((box) => box.classList.remove("win", "lose"));
 
-    minusDisplay.innerHTML = `${(minus -= multiplier)} Coins`;
+    tries++;
+    triesDisplay.innerHTML = `${tries} ${tries === 1 ? "Try" : "Tries"}`;
 
-    totalDisplay.innerHTML = `Total Win: ${minus + plus} Coins`;
+    total = minus + plus;
+    totalDisplay.innerHTML = `Total Win: ${total} Coins`;
     scoreDisplay.textContent = "Coins: " + score;
 
     clearIntervals();
@@ -86,15 +94,15 @@ function startChanging() {
         clearInterval(intervals[index]);
         columStopSound.play();
         if (index === columns.length - 1) {
-          const values = Array.from(symbolBoxes).map((box) => box.textContent); // convertieren von nodelist (querySlecetorAll) zu Array dabei macht .map() für jedes Element im Array textContent rausfiltern
+          const values = Array.from(symbolBoxes).map((box) => box.textContent);
 
           function checkWin(condition, points) {
             if (condition) {
               symbolBoxes.forEach((box) => box.classList.add("win"));
               score += points * multiplier;
+              plus += points * multiplier;
               scoreDisplay.textContent = "Coins: " + score;
               plusDisplay.innerHTML += `+${points * multiplier} Coins` + "<br>";
-              plus = plus + points * multiplier;
               winSound.play();
             } else {
               symbolBoxes.forEach((box) => box.classList.add("lose"));
@@ -102,7 +110,6 @@ function startChanging() {
           }
 
           checkWin(
-            // 🍓🍓🍓
             values[3] === symbols[0] &&
               values[4] === symbols[0] &&
               values[5] === symbols[0],
@@ -110,42 +117,36 @@ function startChanging() {
           );
 
           checkWin(
-            // 🍓🩷🍓
             values[3] === symbols[0] &&
               values[4] === symbols[1] &&
               values[5] === symbols[0],
             20
           );
           checkWin(
-            // ✨✨✨
             values[3] === symbols[3] &&
               values[4] === symbols[3] &&
               values[5] === symbols[3],
             15
           );
           checkWin(
-            // 🩷🩷🩷
             values[3] === symbols[1] &&
               values[4] === symbols[1] &&
               values[5] === symbols[1],
             10
           );
           checkWin(
-            // 🍪🍓🍪
             values[3] === symbols[6] &&
               values[4] === symbols[0] &&
               values[5] === symbols[6],
             8
           );
           checkWin(
-            // ✨🩷✨
             values[3] === symbols[3] &&
               values[4] === symbols[2] &&
               values[5] === symbols[3],
             7
           );
           checkWin(
-            // 🍪✨🍪
             values[3] === symbols[6] &&
               values[4] === symbols[5] &&
               values[5] === symbols[6],
@@ -153,13 +154,13 @@ function startChanging() {
           );
 
           checkWin(
-            // 🍪🍪🍪
             values[3] === symbols[6] &&
               values[4] === symbols[6] &&
               values[5] === symbols[6],
             3
           );
-          totalDisplay.innerHTML = `Total Win: ${minus + plus} Coins`;
+          total = minus + plus;
+          totalDisplay.innerHTML = `Total Win: ${total} Coins`;
           startBtn.disabled = false;
           addBtn.disabled = false;
           subtractBtn.disabled = false;

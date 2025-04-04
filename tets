@@ -1,0 +1,4 @@
+
+    triesDisplay.innerHTML = `${(tries += multiplier)} ${
+      tries === 1 ? "Try" : "Tries"
+    }`;
